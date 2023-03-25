@@ -34,9 +34,6 @@ class InteractiveBrokersSession():
 
         from ibc.client import InteractiveBrokersClient
 
-        # We can also add custom formatting to our log messages.
-        log_format = '%(asctime)-15s|%(filename)s|%(message)s'
-
         self.client: InteractiveBrokersClient = ib_client
 
         self.resource_url = "https://localhost:5000/v1"
@@ -47,9 +44,7 @@ class InteractiveBrokersSession():
 
         logging.basicConfig(
             filename="logs/log_file_custom.log",
-            level=logging.INFO,
-            encoding="utf-8",
-            format=log_format
+            level=logging.INFO
         )
 
     def build_headers(self) -> Dict:

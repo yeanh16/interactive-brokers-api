@@ -13,11 +13,13 @@ from ibc.session import InteractiveBrokersSession
 from ibc.utils.auth import InteractiveBrokersAuthentication
 from ibc.utils.gateway import ClientPortalGateway
 from ibc.rest.data import Data
+import threading
+from time import sleep
 
 
 class InteractiveBrokersClient():
 
-    def __init__(self, account_number: str, password: str) -> None:
+    def __init__(self, account_number: str, password: str, also_run_client_portal=False) -> None:
         """Initializes the `InteractiveBrokersClient` object.
 
         ### Parameters
@@ -49,8 +51,14 @@ class InteractiveBrokersClient():
         )
 
         # Client portal stuff.
-        self._client_portal = ClientPortalGateway()
-        self._client_portal.setup()
+        # self._client_portal = ClientPortalGateway()
+        # self._client_portal.setup()
+        threading.Thread(target=self._keep_alive).start()
+
+    def _keep_alive(self):
+        while True:
+            self._session.make_request(method='post', endpoint='/api/tickle')
+            sleep(60)
 
     @property
     def account_number(self) -> str:

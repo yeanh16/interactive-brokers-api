@@ -43,13 +43,13 @@ class InteractiveBrokersAuthentication():
             The process resource with the process ID of the client portal
             gateway.
         """
-
-        is_running_response = self._is_already_running()
-
-        if not is_running_response['is_running']:
-            self._startup_gateway()
-        else:
-            print("Gateway already running, no need to start back up.")
+        return
+        # is_running_response = self._is_already_running()
+        #
+        # if not is_running_response['is_running']:
+        #     self._startup_gateway()
+        # else:
+        #     print("Gateway already running, no need to start back up.")
 
     def _startup_gateway(self) -> None:
         """Starts the Client Portal Up so the user can authenticate."""
